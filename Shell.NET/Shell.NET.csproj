@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Title>Shell.NET</Title>
     <Authors>ph-hawkins</Authors>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <VersionPrefix>0.2.2</VersionPrefix>
     <Description>Utilize Bash shell directly in C#/.NET Core</Description>
     <Copyright>MIT</Copyright>

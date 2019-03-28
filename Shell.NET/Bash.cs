@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Shell.NET.Util;
 
 namespace Shell.NET
@@ -9,9 +8,6 @@ namespace Shell.NET
     /// <summary>Handles boilerplate for Bash commands and stores output information.</summary>
     public class Bash
     {
-        private static bool _linux { get; }
-        private static bool _mac { get; }
-        private static bool _windows { get; }
         private static string _bashPath { get; }
 
         /// <summary>Determines whether bash is running in a native OS (Linux/MacOS).</summary>
@@ -20,7 +16,7 @@ namespace Shell.NET
 
         /// <summary>Determines if using Windows and if Linux subsystem is installed.</summary>
         /// <returns>True if in Windows and bash detected.</returns>
-        public static bool Subsystem => _windows && File.Exists(@"C:\Windows\System32\bash.exe");
+        public static bool Subsystem => !Native && File.Exists(@"C:\Windows\System32\bash.exe");
 
         /// <summary>Stores output of the previous command if redirected.</summary>
         public string Output { get; private set; }
@@ -37,11 +33,7 @@ namespace Shell.NET
 
         static Bash()
         {
-            _linux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-            _mac = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-            _windows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-
-            Native = _linux || _mac ? true : false;
+            Native = EnvironmentUtils.IsUnix();
             _bashPath = Native ? "bash" : "bash.exe";
         }
 
